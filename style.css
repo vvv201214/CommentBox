@@ -1,0 +1,120 @@
+*{
+    background-color: rgb(247, 239, 230);
+}
+#container{
+    margin: 50px 260px;
+    width: 60%;
+    height: 500px;
+}
+#btn{   
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end; 
+}
+
+button {
+    border: 1px solid grey;
+    cursor: pointer;
+}
+#dlt {
+    background-color: rgb(190, 12, 12);
+    color: white;
+    width: 80px;
+    border-radius: 50px;
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+#reply{
+    background-color: white;
+    width: 80px;
+    border-radius: 50px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+#like{
+    background-color: blue;
+    color: white;
+    width: 80px;
+    border-radius: 50px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+#dislike{
+    background-color: rgb(226, 74, 74);
+    color: white;
+    width: 80px;
+    border-radius: 50px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+#head{
+    display: inline;
+}
+#add{
+    padding: 16px;
+    width: 300px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: green;
+    color: white;
+}
+
+#dlt-comment{
+    padding: 16px;
+    width: 300px;
+    margin-left: 153px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+}
+
+#comment{
+    width: 100%;
+    border: 1px solid grey;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#sub-container{
+    position: relative;
+    width: 90%;
+    height: auto;
+    margin-left: 80px;
+    box-shadow: 1px 1px 5px gray;
+}
+#sub-container-sec{
+    position: relative;
+    width: 90%;
+    height: auto;
+    margin: 20px 10px 20px 80px;
+} 
+
+#reply_text{
+    width: 420px;
+    border: 1px solid grey;
+    padding: 6px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#add-reply{
+    width: 80px;
+    border: 1px solid grey;
+    padding: 6px;
+    cursor: pointer;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+}
+#cancel{
+    width: 80px;
+    border: 1px solid grey;
+    padding: 6px;
+    cursor: pointer;
+    background-color: rgb(238, 166, 31);
+    color: white;
+    border-radius: 5px;
+}
