@@ -5,24 +5,38 @@ const subContainer = document.getElementById("sub-container");
 const deleteAllComment = document.getElementById("dlt-comment");
 
 addButton.addEventListener("click", () => {
-
-
-    const addedComment = document.createElement("p");
-    addedComment.style.fontSize = "20px";
-    addedComment.style.margin = "10px";
-    addedComment.innerHTML = ` ${input.value}<br><br>
-    <div id="btn">       
-        <p id = "likeCounter">0</p>
-        <button id="like" onclick = "likeComment(this)" >Like</button>
-        <p id = dislikeCounter" >0</p>
-        <button id="dislike" onclick = "dislikeComment(this)" >Dislike</button>
-        <button id="reply" onclick = "replyComment(this)">Reply</button>
-        <button id="dlt" onclick = "deleteComment(this)" >Delete</button>
-    </div>`
-
-    subContainer.append(addedComment);
-    input.value = "";
-
+    if(input.value.length <= 0){
+        const showError = document.createElement("p");
+        showError.textContent = "please enter something..!"
+        showError.style.color = "red";
+        input.nextElementSibling.append(showError);
+    }
+    else{
+        if(input.nextElementSibling.children.length !== 0){
+            input.nextElementSibling.children[0].remove();
+        }
+        
+        const addedComment = document.createElement("li");
+        addedComment.setAttribute("class", "list-group-item ");
+        addedComment.style.fontSize = "20px";
+        addedComment.style.margin = "10px";
+        addedComment.innerHTML = `<p class="printed-comment">${input.value}</p>
+        <div class="btn-list">       
+            <p class="btn btn-outline-dark counter" id = "likeCounter">0</p>
+            <button class = "btn btn-primary same-btn" id="like" onclick = "likeComment(this)" >Like</button>
+            <button class = "btn btn-dark same-btn" id="dislike" onclick = "dislikeComment(this)" >Dislike</button>
+            <button class = "btn btn-info same-btn" id="reply" onclick = "replyComment(this)">Reply</button>
+            <button class = "btn btn-danger same-btn" id="dlt" onclick = "deleteComment(this)" >Delete</button>
+        </div>
+        <div class="container">
+            <ul class="list-group replied-comment"></ul>
+        </div>`
+    
+        subContainer.append(addedComment);
+        input.value = "";             
+        
+       
+    }
 });
 
 function likeComment(curr){
@@ -32,9 +46,11 @@ function likeComment(curr){
 }
 
 function dislikeComment(curr){
-    let count = curr.previousElementSibling.textContent;
-    count++;
-    curr.previousElementSibling.textContent = count;
+    let parent = curr.parentNode;
+    let count = parent.children[0].textContent;
+    if(count > 0){count--;}
+
+    parent.children[0].textContent = count;
 }
 
 function deleteComment(curr){
@@ -44,21 +60,37 @@ function deleteComment(curr){
 function replyComment(curr){
     let parent = curr.parentNode.parentNode;
     let subContainerSec = document.createElement("div");
-    subContainerSec.setAttribute("id", "sub-container-sec");
-    subContainerSec.innerHTML = `<input type="text" id="reply_text" placeholder = "add your reply">
-    <button id="add-reply" onclick = "addReply(this)">Add reply</button>
-    <button id="cancel" onclick = "cancel(this)">Cancel</button>`;
+    let errorMsg = document.createElement("div");
+    errorMsg.setAttribute("class", "error-msg");
+    subContainerSec.setAttribute("class", "sub-container-sec input-group");
+    subContainerSec.innerHTML = `
+    <input type="text" class="form-control" placeholder="add your reply" aria-label="Recipient's username with two button addons">
+    <button class="btn btn-outline-success" type="button" id="add-reply" onclick = "addReply(this)">Add reply</button>
+    <button class="btn btn-outline-warning" type="button" id="cancel" onclick = "cancel(this)">Cancel</button>`;
     parent.append(subContainerSec);
+    parent.append(errorMsg);
 }
 function addReply(curr){
     let inputText = curr.previousElementSibling.value;
-    let replied = document.createElement("p");
-    replied.textContent = inputText;
-    replied.style.paddingBottom = "10px"
-    curr.parentNode.append(replied);
-    curr.previousElementSibling.remove();
-    curr.nextElementSibling.remove();
-    curr.remove();
+    if(inputText.length === 0){
+        curr.parentNode.nextElementSibling.textContent = "please type reply.."
+    }
+    else{
+        if(curr.parentNode.nextElementSibling.textContent !== ""){
+            curr.parentNode.nextElementSibling.textContent = "";
+        }
+        let replied = document.createElement("li");
+        replied.setAttribute("class", "list-group-item");
+    
+        replied.textContent = inputText;
+    
+        curr.parentNode.parentNode.children[2].children[0].append(replied);
+    
+        curr.previousElementSibling.remove();
+        curr.nextElementSibling.remove();
+        curr.remove();
+    }
+
 }
 
 function cancel(curr){
@@ -66,10 +98,13 @@ function cancel(curr){
 }
 
 deleteAllComment.addEventListener("click", ()=>{
-    subContainer.remove();
+    let n = subContainer.children.length;
+    for(let elem = 0; elem < n; elem){
+        if(subContainer.children.length !== 0){
+            subContainer.removeChild(subContainer.children[elem]);
+        }
+        else{
+            break;
+        }
+    }        
 })
-
-
-
-
-
